@@ -1,8 +1,9 @@
 FROM anatolelucet/neovim:stable-ubuntu
 RUN apt-get update && apt-get upgrade -y || true
-RUN dpkg --configure -a && apt-get install -f -y
-RUN apt-get install -y \
+RUN dpkg --configure -a && apt-get install --no-install-recommends -f -y
+RUN apt-get install --no-install-recommends -y \
 	git \
+	ssh \
 	curl \
 	wget \
 	nodejs \
@@ -10,7 +11,8 @@ RUN apt-get install -y \
 	python3 \
 	golang-go \
 	python3-pip \
-	ripgrep
+	ripgrep \
+	fzf
 
 COPY ./config/nvim /root/.config/nvim
 COPY ./share/nvim /root/.local/share/nvim
