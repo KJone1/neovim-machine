@@ -1,8 +1,9 @@
 FROM anatolelucet/neovim:stable-ubuntu
 RUN apt-get update && apt-get upgrade -y || true
-RUN dpkg --configure -a && apt-get install -f -y
-RUN apt-get install -y \
+RUN dpkg --configure -a && apt-get install --no-install-recommends -f -y
+RUN apt-get install --no-install-recommends -y \
 	git \
+	ssh \
 	curl \
 	wget \
 	nodejs \
@@ -10,7 +11,11 @@ RUN apt-get install -y \
 	python3 \
 	golang-go \
 	python3-pip \
-	ripgrep
+	ripgrep \
+	fzf \
+ 	jq \
+  	yq \
+   	tmux
 
 COPY ./config/nvim /root/.config/nvim
 COPY ./share/nvim /root/.local/share/nvim
@@ -32,4 +37,5 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
 	tar xf lazygit.tar.gz lazygit && \
 	install lazygit -D -t /usr/local/bin/ && \
 	rm -rf lazygit.tar.gz lazygit
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
 CMD ["tail", "-f", "/dev/null"]
