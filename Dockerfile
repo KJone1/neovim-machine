@@ -34,4 +34,5 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
 	tar xf lazygit.tar.gz lazygit && \
 	install lazygit -D -t /usr/local/bin/ && \
 	rm -rf lazygit.tar.gz lazygit
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
 CMD ["tail", "-f", "/dev/null"]
