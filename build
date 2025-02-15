@@ -1,3 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-docker build -t neovim-machine:1.0 .
+set -eo pipefail
+
+sudo cp -R ~/.config/nvim config/
+sudo cp -R ~/.local/share/nvim share/
+sudo nerdctl build -t neovim-machine:1.0 .
+
+rm -rf config share
