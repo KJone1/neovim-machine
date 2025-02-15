@@ -38,5 +38,5 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
 	install lazygit -D -t /usr/local/bin/ && \
 	rm -rf lazygit.tar.gz lazygit
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
-RUN nvim --headless -c "MasonInstall pyright typescript-language-server"
+RUN nvim --headless -c "MasonInstall pyright typescript-language-server" +q
 CMD ["tail", "-f", "/dev/null"]
