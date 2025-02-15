@@ -12,7 +12,10 @@ RUN apt-get install --no-install-recommends -y \
 	golang-go \
 	python3-pip \
 	ripgrep \
-	fzf
+	fzf \
+ 	jq \
+  	yq \
+   	tmux
 
 COPY ./config/nvim /root/.config/nvim
 COPY ./share/nvim /root/.local/share/nvim
