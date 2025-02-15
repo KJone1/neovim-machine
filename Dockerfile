@@ -13,9 +13,9 @@ RUN apt-get install --no-install-recommends -y \
 	python3-pip \
 	ripgrep \
 	fzf \
- 	jq \
-  	yq \
-   	tmux
+	jq \
+	yq \
+	tmux
 
 COPY ./config/nvim /root/.config/nvim
 COPY ./share/nvim /root/.local/share/nvim
@@ -38,4 +38,5 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
 	install lazygit -D -t /usr/local/bin/ && \
 	rm -rf lazygit.tar.gz lazygit
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
+RUN nvim --headless -c "MasonInstall pyright typescript-language-server"
 CMD ["tail", "-f", "/dev/null"]
