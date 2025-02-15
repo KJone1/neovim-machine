@@ -2,8 +2,28 @@
 
 set -eo pipefail
 
-sudo cp -R ~/.config/nvim config/
-sudo cp -R ~/.local/share/nvim share/
-sudo nerdctl build -t neovim-machine:1.0 .
+copy_config=false
 
-rm -rf config share
+while getopts "c" opt; do
+  case "${opt}" in
+  c)
+    copy_config=true
+    ;;
+  \?)
+    echo "Usage: $0 [-c]" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+if "$copy_config"; then
+  echo "Copying configuration files..."
+  sudo cp -rL ~/.config/nvim config/
+  sudo cp -rL ~/.local/share/nvim share/
+else
+  echo "Skipping configuration copy (use -c flag to copy)."
+fi
+
+sudo docker build -t neovim-machine:1.0 .
